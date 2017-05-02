@@ -1,5 +1,6 @@
+const ProductController = require('../controllers/product_controller');
+
 module.exports = (app) => {
-  app.get('/', (req, res, next) => {
-    res.send('server still works!');
-  })
-}
+//   app.get('/api/products', ProductController.fetchProducts);
+//   app.put('/api/products', ProductController.updateProduct);
+};
