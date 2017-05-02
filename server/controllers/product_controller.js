@@ -30,4 +30,11 @@ module.exports = {
       })
       .catch(next);
   },
+  updateProduct(req, res, next) {
+    const productId = req.body._id;
+    const productProps = req.body;
+    Product.findByIdAndUpdate({ _id: productId }, productProps)
+      .then(updatedItem => res.send(updatedItem))
+      .catch(next);
+  },
 };
