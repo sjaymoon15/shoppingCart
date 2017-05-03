@@ -1,7 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  addItemToCart,
+  removeItemFromCart,
+} from '../actions';
 
 class ProductDetail extends Component {
+  handleAddToCartClick() {
+    const { singleProduct } = this.props;
+    const productToBeAdded = singleProduct;
+    productToBeAdded.available = false;
+    this.props.addItemToCart(productToBeAdded);
+  }
+
+  handleRemoveFromCartClick() {
+    const { singleProduct } = this.props;
+    const cartItemToBeRemoved = singleProduct;
+    cartItemToBeRemoved.available = true;
+    this.props.removeItemFromCart(cartItemToBeRemoved);
+  }
 
   render() {
     const { singleProduct } = this.props;
@@ -21,12 +38,14 @@ class ProductDetail extends Component {
         <button
           className="btn btn-primary btn-block"
           disabled={!singleProduct.available}
+          onClick={this.handleAddToCartClick.bind(this)}
         >
          Add to Cart
         </button>
         <button
           className="btn btn-primary btn-block"
           disabled={singleProduct.available || singleProduct.checkedOut}
+          onClick={this.handleRemoveFromCartClick.bind(this)}
         >
           {singleProduct.checkedOut ? 'Item Checked Out' : 'Remove from Cart'}
         </button>
@@ -40,4 +59,8 @@ const mapStateToProps = (state) => {
   return { singleProduct };
 };
 
-export default connect(mapStateToProps)(ProductDetail);
+export default connect(
+  mapStateToProps,
+  { addItemToCart,
+    removeItemFromCart,
+  })(ProductDetail);
