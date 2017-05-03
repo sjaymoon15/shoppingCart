@@ -3,6 +3,8 @@ import {
   FETCH_PRODUCTS,
   SELECT_PRODUCT,
   PRODUCT_ADDED_TO_CART,
+  PRODUCT_REMOVED_FROM_CART,
+  ITEM_REMOVED_FROM_CART,
 } from './types';
 
 const ROOT_URL = 'http://localhost:5227/api';
@@ -43,6 +45,29 @@ export const addItemToCart = (product) => {
             type: PRODUCT_ADDED_TO_CART,
             payload: newCartItem,
           });
+        });
+      });
+  };
+};
+
+export const removeItemFromCart = (cartItem) => {
+  const cartUrl = `${ROOT_URL}/cart/${cartItem._id}`;
+  const productUrl = `${ROOT_URL}/products`;
+  return (dispatch) => {
+    axios.put(productUrl, cartItem)
+    .then((response) => {
+      const updatedProduct = response.data;
+      updatedProduct.available = true;
+      dispatch({
+        type: PRODUCT_REMOVED_FROM_CART,
+        payload: updatedProduct,
+      });
+    });
+    axios.delete(cartUrl)
+      .then(() => {
+        dispatch({
+          type: ITEM_REMOVED_FROM_CART,
+          payload: cartItem,
         });
       });
   };

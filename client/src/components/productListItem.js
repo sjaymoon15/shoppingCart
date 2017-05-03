@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import {
   selectProduct,
   addItemToCart,
+  removeItemFromCart,
  } from '../actions';
 
 class ProductListItem extends Component {
@@ -17,6 +18,13 @@ class ProductListItem extends Component {
     const productToBeAdded = product;
     productToBeAdded.available = false;
     this.props.addItemToCart(productToBeAdded);
+  }
+
+  handleRemoveFromCartClick() {
+    const { product } = this.props;
+    const cartItemToBeRemoved = product;
+    cartItemToBeRemoved.available = true;
+    this.props.removeItemFromCart(cartItemToBeRemoved);
   }
 
   render() {
@@ -47,6 +55,7 @@ class ProductListItem extends Component {
         <button
           className="btn btn-primary btn-block"
           disabled={product.available || product.checkedOut}
+          onClick={this.handleRemoveFromCartClick.bind(this)}
         >
           {product.checkedOut ? 'Item Checked Out' : 'Remove from Cart'}
         </button>
@@ -59,4 +68,5 @@ export default connect(
   null,
   { selectProduct,
     addItemToCart,
+    removeItemFromCart,
   })(ProductListItem);
