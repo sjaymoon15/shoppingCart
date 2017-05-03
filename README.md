@@ -6,7 +6,7 @@ A simple online shop with a cart.
 
 ### Installation
 
-// open terminal
+// open terminal and start mongodb
 ```
 > mongod
 ```
