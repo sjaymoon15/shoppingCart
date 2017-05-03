@@ -13,11 +13,11 @@ A simple online shop with a cart.
 // open a new terminal 
 ```
 > git clone https://github.com/sjaymoon15/shoppingCart.git
-> cd server
+> cd shoppingCart/server
 > npm install
 > node index.js
 ```
-// open a new terminal and go back to root directory then
+// open a new terminal and go back to root directory (/shoppingCart) then
 ```
 > cd client
 > npm install
