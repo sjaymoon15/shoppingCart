@@ -6,6 +6,7 @@ import {
   PRODUCT_REMOVED_FROM_CART,
   ITEM_REMOVED_FROM_CART,
   FETCH_CART_ITEMS,
+  CHECK_OUT,
 } from './types';
 
 const ROOT_URL = 'http://localhost:5227/api';
@@ -85,5 +86,25 @@ export const fetchCartItems = () => {
           payload: cartItems,
         });
       });
+  };
+};
+
+export const checkOutItems = (itemsToBeCheckedOut) => {
+  const cartUrl = `${ROOT_URL}/checkout`;
+  const productUrl = `${ROOT_URL}/products`;
+  const requests = itemsToBeCheckedOut.map((item) => {
+    item.checkedOut = true;
+    return axios.put(productUrl, item);
+  });
+  return (dispatch) => {
+    axios.all(requests)
+    .then(() => {
+      axios.delete(cartUrl)
+      .then(() => {
+        dispatch({
+          type: CHECK_OUT,
+        });
+      });
+    });
   };
 };

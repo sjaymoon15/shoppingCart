@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { fetchCartItems } from '../actions';
+import {
+  fetchCartItems,
+  checkOutItems,
+} from '../actions';
 import CartListItem from './cartListItem';
 
 class CartList extends Component {
   componentDidMount() {
     this.props.fetchCartItems();
+  }
+
+  handleCheckOutClick() {
+    const { cartItems } = this.props;
+    this.props.checkOutItems(cartItems);
   }
 
   renderCartList() {
@@ -45,6 +53,7 @@ class CartList extends Component {
             <button
               className="btn btn-primary btn-block"
               disabled={cartItems.length < 1}
+              onClick={this.handleCheckOutClick.bind(this)}
             >
               Check Out!
             </button>
@@ -60,4 +69,7 @@ const mapStateToProps = (state) => {
   return { cartItems };
 };
 
-export default connect(mapStateToProps, { fetchCartItems })(CartList);
+export default connect(
+  mapStateToProps,
+  { fetchCartItems,
+    checkOutItems })(CartList);
