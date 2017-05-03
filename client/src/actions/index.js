@@ -5,6 +5,7 @@ import {
   PRODUCT_ADDED_TO_CART,
   PRODUCT_REMOVED_FROM_CART,
   ITEM_REMOVED_FROM_CART,
+  FETCH_CART_ITEMS,
 } from './types';
 
 const ROOT_URL = 'http://localhost:5227/api';
@@ -68,6 +69,20 @@ export const removeItemFromCart = (cartItem) => {
         dispatch({
           type: ITEM_REMOVED_FROM_CART,
           payload: cartItem,
+        });
+      });
+  };
+};
+
+export const fetchCartItems = () => {
+  const url = `${ROOT_URL}/cart`;
+  return (dispatch) => {
+    axios.get(url)
+      .then((response) => {
+        const cartItems = response.data;
+        dispatch({
+          type: FETCH_CART_ITEMS,
+          payload: cartItems,
         });
       });
   };
