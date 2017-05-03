@@ -5,9 +5,10 @@ import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, browserHistory } from 'react-router';
 import reduxThunk from 'redux-thunk';
 
-import App from './components/app';
 import reducers from './reducers';
+import App from './components/app';
 import Products from './components/productList';
+import ProductDetail from './components/productDetail';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 
@@ -16,6 +17,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <Route path="/products" component={Products} />
+        <Route path="/products/:id" component={ProductDetail} />
       </Route>
     </Router>
   </Provider>
