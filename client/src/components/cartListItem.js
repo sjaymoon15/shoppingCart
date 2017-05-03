@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {
+  removeItemFromCart,
+} from '../actions';
 
 class CartListItem extends Component {
+
+  handleRemoveFromCartClick() {
+    const { cartItem } = this.props;
+    const cartItemToBeRemoved = cartItem;
+    cartItemToBeRemoved.available = true;
+    this.props.removeItemFromCart(cartItemToBeRemoved);
+  }
+
   render() {
     const { cartItem } = this.props;
     return (
@@ -15,6 +27,7 @@ class CartListItem extends Component {
         <p>${ cartItem.price }</p>
         <button
           className="btn btn-primary btn-block"
+          onClick={this.handleRemoveFromCartClick.bind(this)}
         >
           Remove From Cart
         </button>
@@ -23,4 +36,4 @@ class CartListItem extends Component {
   }
 }
 
-export default CartListItem;
+export default connect(null, { removeItemFromCart })(CartListItem);
