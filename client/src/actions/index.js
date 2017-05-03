@@ -1,5 +1,8 @@
 import axios from 'axios';
-import { FETCH_PRODUCTS } from './types';
+import {
+  FETCH_PRODUCTS,
+  SELECT_PRODUCT,
+} from './types';
 
 const ROOT_URL = 'http://localhost:5227/api';
 
@@ -14,5 +17,12 @@ export const fetchProducts = () => {
           payload: products,
         });
       });
+  };
+};
+
+export const selectProduct = (product) => {
+  return {
+    type: SELECT_PRODUCT,
+    payload: product,
   };
 };
