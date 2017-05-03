@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { selectProduct } from '../actions';
+import {
+  selectProduct,
+  addItemToCart,
+ } from '../actions';
 
 class ProductListItem extends Component {
   handleProductClick() {
     const { product } = this.props;
     this.props.selectProduct(product);
+  }
+
+  handleAddToCartClick() {
+    const { product } = this.props;
+    const productToBeAdded = product;
+    productToBeAdded.available = false;
+    this.props.addItemToCart(productToBeAdded);
   }
 
   render() {
@@ -30,6 +40,7 @@ class ProductListItem extends Component {
         <button
           className="btn btn-primary btn-block"
           disabled={!product.available}
+          onClick={this.handleAddToCartClick.bind(this)}
         >
           Add to Cart
         </button>
@@ -44,4 +55,8 @@ class ProductListItem extends Component {
   }
 }
 
-export default connect(null, { selectProduct })(ProductListItem);
+export default connect(
+  null,
+  { selectProduct,
+    addItemToCart,
+  })(ProductListItem);
