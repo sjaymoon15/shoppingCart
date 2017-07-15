@@ -1,6 +1,6 @@
 const User = require('../models/User');
 
-exports.signup = function(req, res, next) {
+exports.signup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
