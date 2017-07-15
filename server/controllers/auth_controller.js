@@ -7,7 +7,7 @@ exports.signup = (req, res, next) => {
   User.findOne({ email })
   .then((existingUser) => {
     if (existingUser) {
-      return res.status(422).send({ error: "Email is in use"});
+      return res.status(422).send({ error: 'Email is in use' });
     }
     User.create({ email, password })
     .then(createdUser => res.send(createdUser))
